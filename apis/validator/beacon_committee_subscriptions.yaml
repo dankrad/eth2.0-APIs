@@ -20,8 +20,14 @@ post:
           items:
             type: object
             properties:
+              validator_index:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
               committee_index:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+              committees_at_slot:
+                allOf:
+                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                  - description: "Number of committees at the returned slot"
               slot:
                 allOf:
                   - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'

@@ -7,7 +7,13 @@ get:
   parameters:
     - name: state_id
       in: path
-      $ref: '../../beacon-node-oapi.yaml#/components/parameters/StateId'
+      example: "head"
+      required: true
+      schema:
+        type: string
+      description: |
+        State identifier.
+        Can be one of: "head" (canonical head in node's view), "genesis", "finalized", "justified", \<slot\>, \<hex encoded stateRoot with 0x prefix\>.
   responses:
     "200":
       description: Success
@@ -19,7 +25,26 @@ get:
             properties:
               data:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconState'
-
+    "400":
+      description: "Invalid state ID"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid state ID: current"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 404
+                  message: "State not found"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
 

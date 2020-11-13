@@ -37,6 +37,10 @@ AttesterDuty:
   properties:
     pubkey:
       $ref: './primitive.yaml#/Pubkey'
+    validator_index:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - description: "Index of validator in validator registry"
     committee_index:
       allOf:
         - $ref: "./primitive.yaml#/Uint64"
@@ -45,6 +49,10 @@ AttesterDuty:
       allOf:
         - $ref: "./primitive.yaml#/Uint64"
         - description: "Number of validators in committee"
+    committees_at_slot:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - description: "Number of committees at the provided slot"
     validator_committee_index:
       allOf:
         - $ref: "./primitive.yaml#/Uint64"
@@ -59,6 +67,10 @@ ProposerDuty:
   properties:
     pubkey:
       $ref: './primitive.yaml#/Pubkey'
+    validator_index:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - description: "Index of validator in validator registry."
     slot:
       allOf:
         - $ref: "./primitive.yaml#/Uint64"
@@ -78,7 +90,7 @@ Aggregate:
   properties:
     aggregator_index:
       $ref: './primitive.yaml#/Uint64'
-    attestation:
+    aggregate:
       $ref: './attestation.yaml#/Attestation'
 
 

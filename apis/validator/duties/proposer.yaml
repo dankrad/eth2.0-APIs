@@ -4,7 +4,7 @@ get:
     - Validator
   summary: "Get block proposers duties"
   operationId: "getProposerDuties"
-  description: "Request beacon node to provide all validators that are suppose to propose block in given epoch"
+  description: "Request beacon node to provide all validators that are scheduled to propose a block in the given epoch"
   parameters:
     - name: epoch
       in: path
@@ -25,7 +25,15 @@ get:
                 items:
                   $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ProposerDuty"
     "400":
-      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+      description: "Invalid epoch"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid epoch: -2"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":
